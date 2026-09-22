@@ -59,3 +59,48 @@ jobs:
         with:
           files: |
             *.tar.gz            
+
+  Windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install MSYS2 and SDL2
+        uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: >-
+            mingw-w64-x86_64-toolchain
+            mingw-w64-x86_64-cmake
+            mingw-w64-x86_64-SDL2
+            mingw-w64-x86_64-SDL2_image
+            mingw-w64-x86_64-SDL2_gfx
+            mingw-w64-x86_64-zip
+
+      - name: Build Windows release
+        shell: msys2 {0}
+        run: |
+          cmake -S . -B build-windows -G "MinGW Makefiles" -DCMAKE_BUILD_TYPE=Release
+          cmake --build build-windows --parallel
+          mkdir -p release/OpenMugen/data
+          cp build-windows/OpenMugen.exe release/OpenMugen/
+          cp -r data/. release/OpenMugen/data/
+          for dll in $(ldd build-windows/OpenMugen.exe | sed -n 's/.*=> \(\/mingw64\/bin\/[^ ]*\.dll\).*/\1/p'); do
+            cp "$dll" release/OpenMugen/
+          done
+          cd release
+          zip -r ../OpenMugen-windows-x64.zip OpenMugen
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: OpenMugen-windows-x64
+          path: OpenMugen-windows-x64.zip
+
+      - name: Attach Windows release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: OpenMugen-windows-x64.zip

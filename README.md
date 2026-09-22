@@ -64,6 +64,11 @@ On Windows, install CMake and an SDL2 development environment, then run
 `build-Windows.bat` from the repository directory. An optional configuration
 can be supplied, for example `build-Windows.bat Debug`. The executable and
 runtime data are placed under `build`.
+
+When a `v*` tag is pushed to GitHub, the CD workflow also builds a native
+Windows x64 executable with MSYS2, bundles the required SDL runtime DLLs and
+`data` directory, and attaches `OpenMugen-windows-x64.zip` to the GitHub
+Release.
 <img alt="OpenMugen Gameplay" src="https://github.com/user-attachments/assets/e7a9a194-2dde-4d4f-b41a-24b9154fe2fb" />
 
 
