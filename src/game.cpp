@@ -27,7 +27,7 @@ CGame::CGame() {
     bError     = false;
     bGame      = true;
     nStartTime = nEndTime = 0;
-    nGameType             = GFIGHTGAME;
+    nGameType             = GADVENTURE;
 }
 
 // Destructor
@@ -69,7 +69,7 @@ void CGame::RunGame() {
         // switch to the current Subsystem
         switch (nGameType) {
             // We are running the Fight engine
-            case GFIGHTGAME:
+            case GADVENTURE:
                 m_FightEngine.RunEngine();
                 break;
             // We are in the menu screen

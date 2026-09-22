@@ -83,6 +83,9 @@ class CPlayer {
         y = yAxis;
     }
 
+    s16 GetX() const { return (s16)x; }
+    s16 GetY() const { return (s16)y; }
+
     void VelSetX(float xvel) { xVel = xvel; }
     void VelSetY(float yvel) { yVel = yvel; }
     void SetDebug(bool bDebug) { bDebugInfo = bDebug; }

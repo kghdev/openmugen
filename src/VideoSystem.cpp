@@ -51,7 +51,7 @@ void CVideoSystem::CleanUp() {
 
 bool CVideoSystem::InitSystem() {
     PrintMessage("CVideoSystem::InitSystem()");
-    window   = SDL_CreateWindow(OMTITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 320, 240,
+    window   = SDL_CreateWindow(OMTITLE, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 960,
                                 SDL_SWSURFACE | SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -61,6 +61,8 @@ bool CVideoSystem::InitSystem() {
         return false;
     }
     SDL_SetWindowTitle(window, OMTITLE);
+    SDL_RenderSetLogicalSize(renderer, XMAX, YMAX);
+    SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 
     // Load the icon image as an SDL_Surface
     SDL_Surface* icon = SDL_LoadBMP("data/icon.bmp");
@@ -228,7 +230,13 @@ void CVideoSystem::FilterImage() {
     #endif*/
 }
 
-void CVideoSystem::DrawRect(Sint16 x, Sint16 y, Sint16 x1, Sint16 y1, Uint8 R, Uint8 G, Uint8 B) {}
+void CVideoSystem::DrawRect(Sint16 x, Sint16 y, Sint16 width, Sint16 height, Uint8 R, Uint8 G, Uint8 B) {
+    if (work == NULL || width <= 0 || height <= 0) return;
+
+    SDL_Rect rect = {x, y, width, height};
+    Uint32 color = SDL_MapRGB(work->format, R, G, B);
+    SDL_FillRect(work, &rect, color);
+}
 
 // Draw a string to video
 void CVideoSystem::DrawText(int x, int y, char* strText, ...) {

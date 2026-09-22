@@ -24,6 +24,21 @@ Its main goal is to offer a **simple**, **extensible**, and **cross-platform** f
 
 ---
 
+## Adventure mode
+
+The default game flow is now a 13-area side-scrolling adventure rather than a
+single arcade match. Hold `D` or the right arrow to walk to the next encounter.
+Story scenes pause the route before each fight; use `Y`, `U`, `H`, or `J` to
+attack, and answer the on-screen QTE with a movement or attack input. Victorious
+opponents can join the team until all five slots are filled.
+
+Area 3 is a powered-up mini-boss encounter. Area 12 is the three-minute escape
+sequence, followed by the final boss and the adventure ending. The HUD shows
+the current area, team size, team health reward, opponent health, and the
+current scene objective. Cinematic encounters use versus-style reveal cards,
+variant opponent identities, animated entrances, impact flashes, special-move
+frames, and victory/recruitment transitions.
+
 ## 🖥️ Desktop Version
 
 ### Requirements (Ubuntu/Debian)
@@ -44,6 +59,11 @@ Then run:
 ```bash
 ./build/OpenMugen
 ```
+
+On Windows, install CMake and an SDL2 development environment, then run
+`build-Windows.bat` from the repository directory. An optional configuration
+can be supplied, for example `build-Windows.bat Debug`. The executable and
+runtime data are placed under `build`.
 <img alt="OpenMugen Gameplay" src="https://github.com/user-attachments/assets/e7a9a194-2dde-4d4f-b41a-24b9154fe2fb" />
 
 

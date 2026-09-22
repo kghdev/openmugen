@@ -23,7 +23,7 @@
 #ifndef GAME_H
 #define GAME_H
 
-enum { GMENU = 1, GFIGHTGAME };
+enum { GMENU = 1, GADVENTURE, GFIGHTGAME = GADVENTURE };
 
 // This is the main game class
 class CGame {
